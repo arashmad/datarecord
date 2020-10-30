@@ -1,0 +1,32 @@
+<div class="pages">
+	<div data-page="app_surveyMap" id="app_surveyMap" class="page navbar-fixed toolbar-fixed">
+		<div class="navbar">
+			<div class="navbar-inner">
+				<div class="left">
+					<a href="javascript:mainView.back({'url':'app_main.html'});" class="link">
+						<span class="mdi mdi-24px mdi-arrow-right color-black"></span>
+					</a>
+				</div>
+				<div class="center" id="survey_name">نقشه و آدرس‌ها</div>
+				<div class="right"></div>
+			</div>
+		</div>
+		<div class="page-content">
+			<div>
+				<div class="item-media" style="display:flex;justify-content:space-between;align-items:center;line-height:50px;">
+					<div style="margin-right:16px">
+						<span id="province_name" style="font-size: 18px"></span>
+					</div>
+					<div style="margin-left:16px">
+						<a id="picker_locations" class="button button-raised button-fill color-orange">
+							نمایش لیست بلوکها
+						</a>
+					</div>
+				</div>
+			</div>
+			<!--<div class="list-block" id="province_list" style="margin:0"></div>-->
+			<!--<div class="list-block" id="location_list" style="margin:0"></div>-->
+			<div id="map" class="map-container"></div>
+		</div>
+	</div>
+</div>

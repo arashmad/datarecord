@@ -1,0 +1,129 @@
+<div class="pages">
+	<div data-page="app.form" id="app.form" class="page navbar-fixed toolbar-fixed">
+		<div class="navbar">
+			<div class="navbar-inner">
+				<div class="left">
+					<a href="javascript:mainView.back({'url':'app.main.html'});" class="link">
+						<span class="mdi mdi-24px mdi-arrow-left"></span>
+					</a>
+				</div>
+				<div class="center" id="form_page_name">Form</div>
+				<div class="right">					
+					<a href="javascript:changeTab('tab-map')" class="link">
+						<span class="mdi mdi-24px mdi-map-marker-plus"></span>
+					</a>
+					<a href="javascript:changeTab('tab-form')" class="link">
+						<span class="mdi mdi-24px mdi-file-plus"></span>
+					</a>
+					<!-- <a href="javascript:zoomTo('user-location')" class="link">
+						<span class="mdi mdi-24px mdi-home"></span>
+					</a> -->
+					<a href="javascript:saveFormData()" class="link">
+						<span class="mdi mdi-24px mdi-content-save"></span>
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="page-content">
+			<div class="content-block" style="margin:0;">
+				<!-- <p class="buttons-row">
+					<a href="javascript:changeTab('tab-form')" class="button button-fill color-blue">Form</a>
+					<a href="javascript:changeTab('tab-map')" class="button button-fill color-blue">Map</a>
+				</p> -->
+				<div id="tab-form">
+					<form id="form-data" class="list-block">
+
+						<div style="font-size:16px;font-weight:bold;margin-bottom:4px;">Question 1 (type anything)</div>
+						<input type="text" name="Q1" placeholder="your response...">
+						<hr style="margin:16px 0;" />
+
+						<div style="font-size:16px;font-weight:bold;margin-bottom:4px;">Question 2 (type anything)</div>
+						<input type="text" name="Q2" placeholder="your response...">
+						<hr style="margin:16px 0;" />
+
+						<div style="font-size:16px;font-weight:bold;margin-bottom:4px;">Question 3 (type number only)</div>
+						<input type="number" name="Q3" placeholder="your response...">
+						<hr style="margin:16px 0;" />
+
+						<div style="font-size:16px;font-weight:bold;margin-bottom:4px;">Question 4 (select date)</div>
+						<input type="date" name="Q4" placeholder="yyyy-mm-dd">
+						<hr style="margin:16px 0;" />
+
+						<div style="font-size:16px;font-weight:bold;margin-bottom:4px;">Question 5 (pick up from list)</div>
+						<select name="Q5">
+							<option value="">---</option>
+							<option value="option1">option one</option>
+							<option value="option2">option two</option>
+						</select>
+						<hr style="margin:16px 0;" />
+
+						<div style="font-size:16px;font-weight:bold;margin-bottom:4px;">Question 6 (choose one option)</div>
+						<div class="list-block no-hairlines no-hairlines-between" style="margin-top:0; margin-bottom:0;">
+							<ul>
+								<li>
+									<label class="label-radio item-content">
+										<input type="radio" name="Q6" value="option1">
+										<div class="item-media">
+											<i class="icon icon-form-radio"></i>
+										</div>
+										<div class="item-inner">
+											<div class="item-title">option 1</div>
+										</div>
+									</label>
+								</li>
+								<li>
+									<label class="label-radio item-content">
+										<input type="radio" name="Q6" value="option2">
+										<div class="item-media">
+											<i class="icon icon-form-radio"></i>
+										</div>
+										<div class="item-inner">
+											<div class="item-title">option 2</div>
+										</div>
+									</label>
+								</li>
+							</ul>
+						</div>
+						<hr style="margin:16px 0;" />
+
+						<div style="font-size:16px;font-weight:bold;margin-bottom:4px;">Question 7 (choose multiple options)</div>
+						<div class="list-block no-hairlines no-hairlines-between" style="margin-top:0; margin-bottom:0;">
+							<ul>
+								<li>
+									<label class="label-checkbox item-content">
+										<input type="checkbox" name="Q7" value="option1">
+										<div class="item-media">
+											<i class="icon icon-form-checkbox"></i>
+										</div>
+										<div class="item-inner">
+											<div class="item-title">option 1</div>
+										</div>
+									</label>
+								</li>
+								<li>
+									<label class="label-checkbox item-content">
+										<input type="checkbox" name="Q7" value="option2">
+										<div class="item-media">
+											<i class="icon icon-form-checkbox"></i>
+										</div>
+										<div class="item-inner">
+											<div class="item-title">option 2</div>
+										</div>
+									</label>
+								</li>
+							</ul>
+						</div>
+						<input type="hidden" name="id">
+						<input type="hidden" name="lat">
+						<input type="hidden" name="lng">
+						<input type="hidden" name="create_date">
+						<input type="hidden" name="create_time">
+					</form>
+			</div>
+		</div>
+		<div id="tab-map" class="page-content" style="padding-top:0">
+			<div id="mini_map" class="map-container"></div>
+		</div>
+	</div>
+</div>
+</div>
