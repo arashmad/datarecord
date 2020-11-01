@@ -1243,6 +1243,20 @@ function CreateDirectory(dir, name, callback) {
 	})
 }
 
+function DeleteFile(filePath, fileName, callback) {
+	window.resolveLocalFileSystemURL(filePath, function (e) {
+		e.getFile(fileName, { create: false }, function (fileEntry) {
+			fileEntry.remove(function (file) {
+				callback({ err: 0, msg: `${fileName} removed.` })
+			}, function (error) {
+				callback({ err: 1, msg: `error occurred: ${error.code}` })
+			}, function () {
+				callback({ err: 1, msg: `${fileName} does not exist.` })
+			});
+		});
+	});
+}
+
 function WriteFile(fileEntry, fileContent) {
 	console.log('FileEntry', fileEntry.name)
 	fileEntry.createWriter(function (fileWriter) {
@@ -1260,18 +1274,17 @@ function WriteFile(fileEntry, fileContent) {
 	});
 }
 
-function OpenExportData(filePath, callback) {
-	window.resolveLocalFileSystemURL(filePath, function (e) {
+function OpenExportData(fileFullPath, callback) {
+	window.resolveLocalFileSystemURL(fileFullPath, function (e) {
 		e.file(function (file) {
 			var reader = new FileReader();
 			reader.onloadend = function () {
-				callback({ file: this.result })
+				callback({ err: 0, file: this.result })
 			};
 			reader.readAsText(file);
 		})
 	}, function (e) {
-		console.log("FileSystem Error | " + e);
-		callback({ file: {} })
+		callback({ err: 1, file: {}, msg: `error occurred: ${e}` })
 	});
 }
 
@@ -1280,16 +1293,14 @@ function ExportData(data, callback) {
 	var csvName = AppSettings('data_name')
 	var csvPath = csvDir + csvName
 
-	OpenExportData(csvPath, function (e) {
-		var fileContent = e.file;
+	OpenExportData(csvPath, function (res) {
+		var fileContent = res.file;
 		var data0 = fileContent.split("\n")
-		if (data0.length >= 2) {
-			data0 = data0.shift()
-		}
+		if (data0.length >= 2) { data0 = data0.shift() }
 		var data0 = data0.join('\n')
-		
+
 		var row0 = '', row1 = ''
-		Object.keys(data).forEach(function(item, id) {
+		Object.keys(data).forEach(function (item, id) {
 			var qName = item
 			var qValue = data[item]
 			if (Array.isArray(qValue)) {
@@ -1299,11 +1310,19 @@ function ExportData(data, callback) {
 			row1 += qValue + ','
 		})
 
-		row0 = row0.substring(0,row0.length-1)
-		row1 = row1.substring(0,row1.length-1)
+		row0 = row0.substring(0, row0.length - 1)
+		row1 = row1.substring(0, row1.length - 1)
 		content = row0 + '\n' + data0 + '\n' + row1
 
-		console.log(content)
+		DeleteFile(csvDir, csvName, function (res) {
+			console.log(res.msg)
+			window.resolveLocalFileSystemURL(csvDir, function (dir) {
+				dir.getFile(csvName, { create: true }, function (fileEntry) {
+					WriteFile(fileEntry, content);
+					callback({ err: 0, file: fileEntry, msg: "data.csv file has been created." })
+				})
+			})
+		})
 	});
 	// read exist file
 	// add new data to existed file
